@@ -1,17 +1,24 @@
 import logging
+import os
 
-class task_logger:
+def get_logger(name: str):
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
 
-    def setup_logger():
-        logging.basicConfig(
-            level=logging.INFO,
-            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-            handlers=[
-                logging.FileHandler("app.log"),
-                logging.StreamHandler()
-            ]
-        )
+    if not logger.handlers:
+        if not os.path.exists('logs'):
+            os.makedirs('logs')
 
-logger = task_logger.setup_logger()
+        formatter = logging.Formatter('%(asctime)s | %(levelname)s | %(name)s | %(message)s')
+        
+        console_handler = logging.StreamHandler()
+        console_handler.setFormatter(formatter)
 
+        file_handler = logging.FileHandler("logs/app.log")
+        file_handler.setFormatter(formatter)
 
+        
+        logger.addHandler(console_handler)
+        logger.addHandler(file_handler)
+
+    return logger
