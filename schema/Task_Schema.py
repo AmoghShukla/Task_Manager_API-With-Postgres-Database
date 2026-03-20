@@ -9,7 +9,6 @@ class TaskResponse(BaseModel):
     id : int
     title : str
     description : Optional[str]
-    completed : bool
 
 
 class TaskUpdate(BaseModel):

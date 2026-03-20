@@ -17,6 +17,8 @@ class Task_Service:
         db.Database[db.Counter] = task
         logger.info("Task Creation Successful!!")
         db.Counter += 1
+
+        return task
         
     
     def Get_All_Task():
@@ -38,7 +40,7 @@ class Task_Service:
             if data.title is not None:
                 task["title"] = data.title
             if data.description is not None:
-                task["description"] = data.desscription
+                task["description"] = data.description
             return task
         else:
             raise HTTPException(status_code=404, detail="Task Not Found")
