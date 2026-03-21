@@ -27,29 +27,32 @@ class Task_Service:
 
     
     def Get_Task(task_id):
-        logger.info(f"Getching the Task with Task Id : {task_id}")
-        return db.Database[task_id]
+        task = db.Database.get(task_id)
+        if not task:
+            raise HTTPException(status_code=404, detail="Task Not Found")
+        return task
     
     def Update_Task(task_id: int, data):
-        if task_id in db.Database:
-            task = db.Database.get(task_id)
-            logger.info(f"Updating Task with Task ID : {task_id}")
-            if not task:
-                return None
+        task = db.Database.get(task_id)
 
-            if data.title is not None:
-                task["title"] = data.title
-            if data.description is not None:
-                task["description"] = data.description
-            return task
-        else:
+        if not task:
             raise HTTPException(status_code=404, detail="Task Not Found")
+        logger.info(f"Updating Task with Task ID : {task_id}")
+
+        if data.title is not None:
+            task["title"] = data.title
+
+        if data.description is not None:
+            task["description"] = data.description
+
+        return task
     
     def Delete_Task(task_id):
-        if task_id in db.Database:
-            logger.info(f"Deleting Entry with taks_id {task_id}")
-            del db.Database[task_id]
-            return "Task Deleted Successfully"
-        else:
-            return HTTPException(status_code=404, detail="Task Not Found")
+        if task_id not in db.Database:
+            raise HTTPException(status_code=404, detail="Task Not Found")
+
+        logger.info(f"Deleting Entry with task_id {task_id}")
+        del db.Database[task_id]
+
+        return {"message": "Task Deleted Successfully"}
 

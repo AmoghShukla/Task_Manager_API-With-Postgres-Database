@@ -12,6 +12,5 @@ class TaskResponse(BaseModel):
 
 
 class TaskUpdate(BaseModel):
-    id : Optional[int]
     title : Optional[str]
     description : Optional[str]

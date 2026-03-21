@@ -10,18 +10,18 @@ logger = get_logger(__name__)
 def create_task(payload : TaskCreate):
     return Task_Service.Create_Task(payload)
 
-@router.get("/", response_model=TaskResponse)    
-def Get_All_Task():
+@router.get("/", response_model=list[TaskResponse])
+def get_all_tasks():
     return Task_Service.Get_All_Task()
 
-@router.get("/", response_model=TaskResponse)
-def Get_Task(task_id : int):
+@router.get("/{task_id}", response_model=TaskResponse)
+def get_task(task_id: int):
     return Task_Service.Get_Task(task_id)
 
-@router.patch("/")
-def Update_Task(payload : TaskUpdate):
-    return Task_Service.Update_Task(payload)
+@router.patch("/{task_id}")
+def Update_Task(task_id: int, payload: TaskUpdate):
+    return Task_Service.Update_Task(task_id, payload)
 
-@router.delete("/")
-def Delete_Task(task_id):
+@router.delete("/{task_id}")
+def Delete_Task(task_id: int):
     return Task_Service.Delete_Task(task_id)
