@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, validator, ConfigDict, model_validator, field_validator
 from typing import Optional
 
 class TaskCreate(BaseModel):
@@ -23,13 +23,22 @@ class TaskResponse(BaseModel):
 
 
 class TaskUpdate(BaseModel):
-    title: Optional[str] = Field(None, min_length=3, max_length=50)
-    description: Optional[str] = Field(None, min_length=5, max_length=300)
+    title: Optional[str] = Field(None, min_length=1)
+    description: Optional[str] = None
 
-    @validator("title", "description")
-    def clean(cls, v):
-        if v is not None:
-            v = v.strip()
-            if not v:
-                raise ValueError("Field cannot be empty")
+    model_config = ConfigDict(extra="forbid")
+
+    @field_validator("title", "description", mode="before")
+    def clean_text(cls, v):
+        if v is None:
+            return v
+        v = v.strip()
+        if not v:
+            raise ValueError("Field cannot be empty")
         return v
+
+    @model_validator(mode="after")
+    def at_least_one_field(self):
+        if self.title is None and self.description is None:
+            raise ValueError("At least one field must be provided")
+        return self

@@ -1,12 +1,5 @@
 from typing import Optional
 from pydantic import BaseModel, ConfigDict, Field
-# from enum import Enum
-
-# class Status(str, Enum):
-#     pending="pending"
-#     completed="completed"
-#     in_progress="in_progress"
-#     cancelled="cancelled"
 
 
 class TaskBase(BaseModel):
