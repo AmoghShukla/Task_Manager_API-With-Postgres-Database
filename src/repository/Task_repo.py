@@ -44,7 +44,7 @@ def get_all(db, completed: bool = None):
 def get_by_id(task_id: int, db):
 	try:
 		task = db.query(Task).filter(Task.id == task_id).first()
-		if not task or task("is_active") == False:
+		if not task:
 			return None
 		return _task_to_response(task)
 	finally:
