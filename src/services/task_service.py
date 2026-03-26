@@ -19,5 +19,13 @@ def update_task(task_id: int, data, db):
     return repository.update(task_id, data, db)
     
 
-def delete_task(task_id: int, db):
-    return repository.delete(task_id, db)
+def delete_task(task_id: int, hard, db):
+    if hard == True:
+        logger.info(f"Performing Hard Delete for Task with id : {task_id}")
+        return repository.delete(task_id, db)
+    elif hard == False:
+        logger.info(f"Performing Soft Delete for Task with id : {task_id}")
+        return repository.delete(task_id, db)
+    else:
+        logger.warning(f"Invalid Delete Type for Task with id : {task_id}")
+        return None
