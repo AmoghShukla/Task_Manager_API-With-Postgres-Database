@@ -1,13 +1,16 @@
 from fastapi import FastAPI
-from utils.Task_logger import get_logger
-from routers.Task_Route import router as task_router
+from src.routers.task_routes import router as TaskRouter
+from src.database.base import Base
+from src.database.engine import engine
+# from models import task_model  # noqa: F401
 
-app  = FastAPI(title="Task Manager API")
-app.include_router(task_router, prefix="/tasks", tags=["Tasks"])
-logger = get_logger(__name__)
+
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI(title="Task Manager API")
+app.include_router(TaskRouter, prefix="/tasks", tags=["Tasks"])
+
 
 @app.get("/")
-def Home():
-    logger.info("API is Running")
-    return {"message" : "Your API is Running Now"}
-
+def home():
+    return {"message": "Task Manager API is running!"}
