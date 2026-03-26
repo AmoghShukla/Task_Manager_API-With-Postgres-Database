@@ -14,6 +14,7 @@ class TaskCreate(BaseModel):
 
 class TaskDelete(BaseModel):
     id: int = Field(..., gt=0)
+    hard: bool = Field(default=False)
 
 class TaskResponse(BaseModel):
     id: int
