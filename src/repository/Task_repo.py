@@ -68,6 +68,17 @@ def update(task_id: int, data, db):
 	finally:
 		db.close()
 
+def soft_delete(task_id: int, db):
+	try:
+		task = db.query(Task).filter(Task.id == task_id).first()
+		if not task:
+			return False
+
+		task.is_active = False
+		db.commit()
+		return True
+	finally:
+		db.close()
 
 def delete(task_id: int, db):
 	try:
