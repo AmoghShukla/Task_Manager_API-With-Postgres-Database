@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query, Depends, status
 from typing import Optional, List
-from src.schemas.task_schema import TaskCreate, TaskResponse, TaskUpdate
+from src.schema.Task_Schema import TaskCreate, TaskResponse, TaskUpdate
 from src.services import task_service
 from src.core.logger import get_logger
 from sqlalchemy.orm import Session
