@@ -39,9 +39,9 @@ def update_task(task_id: int, payload: TaskUpdate, db : Session=Depends(get_db))
     return task
 
 @router.delete("/delete_task/{task_id}")
-def delete_task(task_id: int, db : Session=Depends(get_db), status_code=status.HTTP_200_OK):
+def delete_task(task_id: int, hard : bool,  db : Session=Depends(get_db), status_code=status.HTTP_200_OK):
     logger.info(f"Deleting Task with task_id : {task_id}")
-    deleted = task_service.delete_task(task_id, db)
+    deleted = task_service.delete_task(task_id, hard, db)
     if not deleted:
         logger.warning(f"Task Not Found : {task_id}")
         raise HTTPException(status_code=404, detail="Task Not Found")
