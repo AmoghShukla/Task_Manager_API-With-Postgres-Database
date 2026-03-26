@@ -5,7 +5,7 @@ from src.database.engine import engine
 # from models import task_model  # noqa: F401
 
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Task Manager API")
 app.include_router(TaskRouter, prefix="/tasks", tags=["Tasks"])

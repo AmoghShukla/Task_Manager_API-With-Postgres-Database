@@ -11,3 +11,4 @@ class Task(Base):
 	title = Column(String(255))
 	description = Column(String)
 	completed = Column(Boolean, default=False)
+	is_active = Column(Boolean, default=True)

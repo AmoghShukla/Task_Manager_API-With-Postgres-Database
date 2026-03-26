@@ -1,5 +1,14 @@
 *.pyc
 *.log
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+
 app.log
 .env.*
+alembic/__pycache__/
+logs/
+*.log
+.ini
