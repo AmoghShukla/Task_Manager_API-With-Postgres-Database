@@ -12,6 +12,8 @@ class TaskCreate(BaseModel):
             raise ValueError("Field cannot be empty")
         return v
 
+class TaskDelete(BaseModel):
+    id: int = Field(..., gt=0)
 
 class TaskResponse(BaseModel):
     id: int
