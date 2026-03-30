@@ -4,6 +4,7 @@ A RESTful API for managing tasks, built with **FastAPI** and **PostgreSQL**. Sup
 
 ---
 
+
 ## 🚀 Tech Stack
 
 | Layer | Technology |
