@@ -2,6 +2,7 @@
 
 A RESTful API for managing tasks, built with **FastAPI** and **PostgreSQL**. Supports full CRUD operations on tasks, database migrations via **Alembic**, and is ready to run locally with a simple setup.
 
+
 ---
 
 
